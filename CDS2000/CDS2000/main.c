@@ -36,20 +36,32 @@ char  * get_cpu_temperature(char ** cpu_id);
 void get_mem_occupy(MEM_OCCUPY * mem);
 double get_memory_total();
 double get_memory_free();
+char * POST_Authorization();
+char * get_Cluster_Status();
+char * Splice_character();
+//char *character;
+char * get_accessToken();
 float  g_cpu_used;
 char  * cpu_temperature;
+char * Authorization;
+char authorization_cmd[500]="curl -s -k -X GET 'https://192.168.0.12/irisservices/api/v1/public/cluster?fetchStats=true' -H 'accept: application/json' -H 'Authorization:Bearer ";
 
 
 int main(int argc, const char * argv[]) {
     printf("-- It time to test -- \n");
     printf("cpu num: %i\n",get_cpu_num());
     //printf("cpu used: %4.2f \n",get_cpu_occupy());
-    char a[20]="'CPU1 Temp'";
-    char *cpu_id=a;
+    //char a[20]="'CPU1 Temp'";
+    //char *cpu_id=a;
     //printf("%s\n",cpu_id);
-    printf("cpu1 temp: %s\n",get_cpu_temperature(&cpu_id));
-    printf("memory total :%4.2f\n",get_memory_total());
-     printf("memory free :%4.2f\n",get_memory_free());
+    //printf("cpu1 temp: %s\n",get_cpu_temperature(&cpu_id));
+    //printf("memory total :%4.2f\n",get_memory_total());
+    //printf("memory free :%4.2f\n",get_memory_free());
+    //printf("authorization info : %s\n",POST_Authorization());
+    
+    printf("physicalCapacityBytes :%s\n",get_Cluster_Status());
+    //Splice_character();
+    
     return 0;
 }
 
@@ -154,4 +166,88 @@ int get_net_num(){
     
     return net_num;
 }
-
+//集群总容量
+char * get_Cluster_Status(){
+    FILE * cluster_status;
+    char buff[2048];
+    char a[20];
+    //char b[20];
+    char c[50];
+    Splice_character();
+    char * cmd ;
+    cmd=authorization_cmd;
+    cluster_status = popen(cmd,"r");
+    //free(cmd);
+    //printf("拼接完命令 ：%s\n",authorization_cmd);
+    if(fgets (buff, sizeof(buff), cluster_status)!=NULL){
+        //printf("标记：%s\n","mmmmm");
+        sscanf (buff, "%s\n",a);
+        //printf("cluster info: %s\n",a);
+        cJSON * root = NULL;
+        cJSON * item = NULL;//cjson对象
+        root = cJSON_Parse(a);
+        if (!root)
+        {
+            printf("Error before: [%s]\n",cJSON_GetErrorPtr());
+        }
+        else
+        {
+            //printf("标记：%s\n","jjjjj");
+            item = cJSON_GetObjectItem(root, "stats");
+            //printf("1: %s\n", cJSON_Print(item));
+            item = cJSON_GetObjectItem(item, "localUsagePerfStats");
+            //printf("2: %s\n", cJSON_Print(item));
+            item = cJSON_GetObjectItem(item, "physicalCapacityBytes");
+            sprintf(c,"%lf",item->valuedouble);
+            //printf("3: %s \n",c);
+            //sprintf(c, "%g", item->valuedouble);
+            //strcpy(*clusterstatus,c);
+            //printf("3: %f \n",item->valuedouble);
+            cJSON_Delete(root);
+        }
+    }
+    pclose(cluster_status);
+    return c;
+}
+char * POST_Authorization(){
+    //char * Authorization=NULL;
+    char buff[MAXBUFSIZE];
+    char a[20];
+    char * accessToken;
+    FILE * authorization=NULL;
+    
+    char * cmd= "curl -s -k -X POST 'https://192.168.0.12/irisservices/api/v1/public/accessTokens' -H 'accept: application/json' -H 'content-type: application/json' -d '{ \"domain\": \"LOCAL\", \"password\": \"admin\", \"username\": \"admin\"}'";
+    authorization = popen(cmd, "r");
+    if(fgets (buff, sizeof(buff), authorization)!=NULL){
+        sscanf (buff, "%s\n",a);
+        cJSON * root = NULL;
+        cJSON * item = NULL;
+        //printf("quan %s\n",a);
+        root = cJSON_Parse(a);
+        
+        if (!root)
+        {
+            printf("Error before: [%s]\n",cJSON_GetErrorPtr());
+        }
+        else
+        {
+            item = cJSON_GetObjectItem(root, "accessToken");
+            accessToken=item->valuestring;
+        }
+        //cJSON_Delete(root);
+        //cJSON_Delete(item);
+        //printf("authorization info: %s\n",accessToken);
+    }
+    //Authorization=a;
+    
+    pclose(authorization);
+    
+    return accessToken;
+}
+char * Splice_character(){
+    char * character;
+    strcat (authorization_cmd,POST_Authorization());
+    strcat (authorization_cmd,"'");
+    character=authorization_cmd;
+    return authorization_cmd;
+}
