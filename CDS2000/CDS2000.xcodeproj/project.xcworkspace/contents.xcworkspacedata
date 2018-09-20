@@ -2,12 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:../CDS2000/cJSON.c">
-   </FileRef>
-   <FileRef
-      location = "group:../CDS2000/cJSON.h">
-   </FileRef>
-   <FileRef
       location = "self:">
    </FileRef>
 </Workspace>

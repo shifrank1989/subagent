@@ -11,7 +11,8 @@
 		F1659FF821102791004D1699 /* GetSysInfo.c in Sources */ = {isa = PBXBuildFile; fileRef = F1659FF721102791004D1699 /* GetSysInfo.c */; };
 		F1659FFB211027BE004D1699 /* HTTPRestAPI.c in Sources */ = {isa = PBXBuildFile; fileRef = F1659FFA211027BE004D1699 /* HTTPRestAPI.c */; };
 		F1659FFE21102806004D1699 /* GetHardwareInfo.c in Sources */ = {isa = PBXBuildFile; fileRef = F1659FFD21102806004D1699 /* GetHardwareInfo.c */; };
-		F165A0012110A931004D1699 /* cJSON.c in Sources */ = {isa = PBXBuildFile; fileRef = F1659FFF2110A930004D1699 /* cJSON.c */; };
+		F17337C02148C75C0045BF4F /* cJSON.c in Sources */ = {isa = PBXBuildFile; fileRef = F17337BF2148C75C0045BF4F /* cJSON.c */; };
+		F1F0BAE12148FD33009C5523 /* cds2000.c in Sources */ = {isa = PBXBuildFile; fileRef = F1F0BAE02148FD33009C5523 /* cds2000.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -36,8 +37,10 @@
 		F1659FFA211027BE004D1699 /* HTTPRestAPI.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = HTTPRestAPI.c; sourceTree = "<group>"; };
 		F1659FFC21102806004D1699 /* GetHardwareInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GetHardwareInfo.h; sourceTree = "<group>"; };
 		F1659FFD21102806004D1699 /* GetHardwareInfo.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = GetHardwareInfo.c; sourceTree = "<group>"; };
-		F1659FFF2110A930004D1699 /* cJSON.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = cJSON.c; path = ../../../../cJSON/cJSON.c; sourceTree = "<group>"; };
-		F165A0002110A930004D1699 /* cJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = cJSON.h; path = ../../../../cJSON/cJSON.h; sourceTree = "<group>"; };
+		F17337BE2148C75C0045BF4F /* cJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cJSON.h; sourceTree = "<group>"; };
+		F17337BF2148C75C0045BF4F /* cJSON.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = cJSON.c; sourceTree = "<group>"; };
+		F1F0BADF2148FD33009C5523 /* cds2000.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = cds2000.h; sourceTree = "<group>"; };
+		F1F0BAE02148FD33009C5523 /* cds2000.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = cds2000.c; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,6 +57,8 @@
 		F1659FDE21101F57004D1699 = {
 			isa = PBXGroup;
 			children = (
+				F1F0BADF2148FD33009C5523 /* cds2000.h */,
+				F1F0BAE02148FD33009C5523 /* cds2000.c */,
 				F1659FE921101F58004D1699 /* CDS2000 */,
 				F1659FE821101F58004D1699 /* Products */,
 			);
@@ -70,8 +75,8 @@
 		F1659FE921101F58004D1699 /* CDS2000 */ = {
 			isa = PBXGroup;
 			children = (
-				F1659FFF2110A930004D1699 /* cJSON.c */,
-				F165A0002110A930004D1699 /* cJSON.h */,
+				F17337BF2148C75C0045BF4F /* cJSON.c */,
+				F17337BE2148C75C0045BF4F /* cJSON.h */,
 				F1659FF421101FF1004D1699 /* CDS2000.my */,
 				F1659FEA21101F58004D1699 /* main.c */,
 				F1659FF621102791004D1699 /* GetSysInfo.h */,
@@ -140,10 +145,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F1F0BAE12148FD33009C5523 /* cds2000.c in Sources */,
 				F1659FF821102791004D1699 /* GetSysInfo.c in Sources */,
 				F1659FEB21101F58004D1699 /* main.c in Sources */,
 				F1659FFB211027BE004D1699 /* HTTPRestAPI.c in Sources */,
-				F165A0012110A931004D1699 /* cJSON.c in Sources */,
+				F17337C02148C75C0045BF4F /* cJSON.c in Sources */,
 				F1659FFE21102806004D1699 /* GetHardwareInfo.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
